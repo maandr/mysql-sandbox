@@ -10,16 +10,18 @@ docker-compose up -d
 
 ## Connect to MySQL
 
-To connect to the mysql container run the following command.
+To connect to the mysql server running in the docker container.
 
 ```bash
-docker container exec -it mysqlsandbox_mysql_sandbox_1 "bash"
+mysql -u root -p -h ${DOCKER_IP}
 ```
 
-Once connected to the container you can connect to mysql using:
+## Run and connect
+
+To start the mysql container and connect to the mysql server right away run the following command.
 
 ```bash
-mysql -u root -p
+./connect.sh
 ```
 
 ## Tear down Environment
