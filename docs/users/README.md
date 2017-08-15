@@ -1,4 +1,4 @@
-# MYSQL Users
+# SQL Users
 
 ## Managing Users
 
