@@ -15,3 +15,23 @@ Constaints can be either specified on column or table level.
 |`CHECK`|Ensures that all values helt in a column are satisfing a specific condition.|
 |`DEFAULT`|Sets a default value for a column that is used when there is no value specified.|
 |`INDEX`|Used to create and retrieve data from the database in a high performant manner.|
+
+## Constrains
+
+### NOT NULL
+
+By default each table column can hold `NULL` values.
+
+Adding a `NOT NULL` constraint to a column enforces the column to not accept `NULL` values. This means it's not possible to insert new records, or update records without providing a value for this column.
+
+#### Examples
+
+The following statement creates a table `person` with three columns that won't accept `NULL` as values.
+
+```sql
+CREATE TABLE person (
+    id int NOT NULL,
+    name varchar(60) NOT NULL,
+    age int NOT NULL
+);
+```
