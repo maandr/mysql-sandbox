@@ -142,3 +142,40 @@ ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
 mysql> DELETE * FROM person WHERE id = 1;
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* FROM person WHERE id = 1' at line 1
 ```
+
+### DEFAULT
+
+The `DEFAULT` constaint is used to provide a default value for a column. The specified default value will then be used for all newly created records if no other value is specified instead.
+
+#### Examples
+
+The following statement creates a table `person` with a `DEFAULT` constraints on the `species` column.
+
+```sql
+CREATE TABLE animal (
+    id int NOT NULL,
+    name varchar(60),
+    species varchar(60) DEFAULT 'mammal'
+);
+```
+
+When entering two new records to the `animal` table, one of them missing a value for the column `species`.
+
+```mysql
+mysql> INSERT INTO animal (id, name) VALUES (1, 'Bobby');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO animal (id, name, species) VALUES (2, 'Anthony', 'Goldfish');
+Query OK, 1 row affected (0.00 sec)
+```
+
+The resulting `animal` table will look like this.
+
+```sql
++----+---------+----------+
+| id | name    | species  |
++----+---------+----------+
+|  1 | Bobby   | mammal   |
+|  2 | Anthony | Goldfish |
++----+---------+----------+
+```
