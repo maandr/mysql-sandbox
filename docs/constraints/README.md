@@ -86,7 +86,7 @@ CREATE TABLE person (
 
 The constaints prevents that the table `person` accepts the same value for the `id` column again. Also proving `NULL` as a value is prevented by the constraint.
 
-```mysql
+```
 mysql> INSERT INTO person (id, name, age) VALUES (1, 'Nadine', 41);
 Query OK, 1 row affected (0.00 sec)
 
@@ -129,7 +129,7 @@ CREATE TABLE bankAccount (
 
 The constraints prevents the `bankAccount` table from accepting values that aren't existing in the linked `person` table. It also ensures no duplicate values can be entered. Finally it also ensures that the linked record in the `person` table can not be deleted as long as `bankAccount` still uses it as a foreign key.
 
-```mysql
+```
 mysql> INSERT INTO bankAccount (id, accountHolder, balance) VALUES (1, 1, 500.00);
 Query OK, 1 row affected (0.01 sec)
 
@@ -161,7 +161,7 @@ CREATE TABLE animal (
 
 When entering two new records to the `animal` table, one of them missing a value for the column `species`.
 
-```mysql
+```
 mysql> INSERT INTO animal (id, name) VALUES (1, 'Bobby');
 Query OK, 1 row affected (0.01 sec)
 
