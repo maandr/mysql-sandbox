@@ -86,7 +86,7 @@ CREATE TABLE person (
 
 The constaints prevents that the table `person` accepts the same value for the `id` column again. Also proving `NULL` as a value is prevented by the constraint.
 
-```sql
+```mysql
 mysql> INSERT INTO person (id, name, age) VALUES (1, 'Nadine', 41);
 Query OK, 1 row affected (0.00 sec)
 
@@ -98,4 +98,47 @@ Query OK, 1 row affected (0.01 sec)
 
 mysql> INSERT INTO person (id, name, age) VALUES (NULL, 'Henry', 35);
 ERROR 1048 (23000): Column 'id' cannot be null
+```
+
+### FOREIGN KEY
+
+Adding a `FOREIGN KEY` constraints to a column likes it to the `PRIMARY KEY` of another table. It prevents actions that would destroy the links between the connected tables. Furthermore it also prevents the insertion of invalid data to the column and makes sure it contains values existing in the table it points to.
+
+Each table can have multiple foreign keys, which itself can consist of multiple columns that refere to the `PRIMIARY KEY` of another table.
+
+#### Examples
+
+The following statements create a table `person` and a table `bankAccount`. The table `bankAccount` has a `FOREIGN KEY` constaint on the column `accountHolder` that is refering to the primiary key of the `person` table.
+
+```sql
+CREATE TABLE person (
+    id int NOT NULL,
+    name varchar(60) NOT NULL,
+    age int NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE bankAccount (
+    id int NOT NULL,
+    accountHolder int NOT NULL,
+    balance decimal NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(accountHolder) REFERENCES person(id)
+);
+```
+
+The constraints prevents the `bankAccount` table from accepting values that aren't existing in the linked `person` table. It also ensures no duplicate values can be entered. Finally it also ensures that the linked record in the `person` table can not be deleted as long as `bankAccount` still uses it as a foreign key.
+
+```mysql
+mysql> INSERT INTO bankAccount (id, accountHolder, balance) VALUES (1, 1, 500.00);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO bankAccount (id, accountHolder, balance) VALUES (2, 3, 2350.00);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`sandbox`.`bankAccount`, CONSTRAINT `bankAccount_ibfk_1` FOREIGN KEY (`accountHolder`) REFERENCES `person` (`id`))
+
+mysql> INSERT INTO bankAccount (id, accountHolder, balance) VALUES (1, 1, 1500.00);
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+
+mysql> DELETE * FROM person WHERE id = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* FROM person WHERE id = 1' at line 1
 ```
