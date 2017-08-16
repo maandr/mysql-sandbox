@@ -35,3 +35,32 @@ CREATE TABLE person (
     age int NOT NULL
 );
 ```
+
+### UNIQUE
+
+Adding a `UNIQUE` constraint to a column ensures that all values in that column are different. So it guarantees for the data uniqueness of it's related column.
+
+A column with a `PRIMARY_KEY` constraint has also always a implicit `UNIQUE` constraint. The difference is you can have multiple `UNIQUE` constraints per table but only one `PRIMARY_KEY` constraint.
+
+#### Examples
+
+The following statement creates a table `person` with a `id` column that won't accept duplicate values.
+
+```sql
+CREATE TABLE person (
+    id int NOT NULL,
+    name varchar(60) NOT NULL,
+    age int NOT NULL,
+    UNIQUE(id)
+);
+```
+
+The constaints prevents that the table `person` accepts the same value for the `id` column again.
+
+```sql
+mysql> INSERT INTO person (id, name, age) VALUES (1, "Hans", 56);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO person (id, name, age) VALUES (1, "Anna", 32);
+ERROR 1062 (23000): Duplicate entry '1' for key 'id'
+```
