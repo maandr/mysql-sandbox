@@ -143,6 +143,24 @@ mysql> DELETE * FROM person WHERE id = 1;
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* FROM person WHERE id = 1' at line 1
 ```
 
+### CHECK
+
+A `CHECK` constaint provides the ability to limit the value range that can be stored in a column. By adding it to a column it will only store values that pass the `CHECK` constraint. By adding it to a table it can limit the values that are allowed to store for certain column based on values of other columns in the row.
+
+**CHECK constraints are not supported by MySQL. You can define them, but they do nothing (as of MySQL 5.7).**
+
+#### Examples
+
+The following statement will create a table `adultPerson` that has a `CHECK` constraint on the age column. Each record that is going to be stored in this table has to provide a value for the `age` column _greater than or equal to 18_.
+```sql
+CREATE TABLE adultPerson (
+    id int NOT NULL,
+    name varchar(60) NOT NULL,
+    age int,
+    CHECK (age>=18)
+);
+```
+
 ### DEFAULT
 
 The `DEFAULT` constaint is used to provide a default value for a column. The specified default value will then be used for all newly created records if no other value is specified instead.
