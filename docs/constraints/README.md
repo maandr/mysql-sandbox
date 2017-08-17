@@ -14,7 +14,6 @@ Constaints can be either specified on column or table level.
 |`FOREIGN_KEY`|A column with this constaints uniquely identifies a row in another table.|
 |`CHECK`|Ensures that all values helt in a column are satisfing a specific condition.|
 |`DEFAULT`|Sets a default value for a column that is used when there is no value specified.|
-|`INDEX`|Used to create and retrieve data from the database in a high performant manner.|
 
 ## Constrains
 
